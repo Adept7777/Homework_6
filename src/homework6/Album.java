@@ -12,11 +12,10 @@ public class Album
 {
 	private String artist;
 	private String name;
-
 	private LinkedList<Track> tracks;
 
 	/**
-	 * Constructor. Complete the constructor. Initialize the LinkedList.
+	 * Complete the constructor. Initialize the LinkedList.
 	 * @param artist the album artist
 	 * @param name the name of the album
 	 */
@@ -24,11 +23,10 @@ public class Album
 	{
 		this.artist = artist;
 		this.name = name;
-
-		// YOUR CODE HERE (construct the LinkedList)
+		this.tracks = new LinkedList<Track>();
 	}
 
-	// accessors and mutators
+	//Accessors and mutators.
 	public String getArtist(){ return artist; }
 	public String getName(){ return name; }
 	public void setArtist(String artist){ this.artist = artist; }
@@ -42,23 +40,31 @@ public class Album
 	 * Radiohead
 	 * Kid A
 	 * Everything in Its Right Place
-	 * Kid A
-	 * The National Anthem
-	 * How to Disappear Completely
-	 * Treefingers
-	 * Optimistic
-	 * In Limbo
-	 * Idioteque
-	 * Morning Bell
-	 * Motion Picture Soundtrack
+	 * ...
 	 * If an exception occurs, print "An exception has occurred. Unable to load the album in filename!"
-	 * where filenameis replaced with the actual filename.
+	 * where filename is replaced with the actual filename.
 	 * @param filename the path to the file from which to load album information
 	 * @return the album created from the file
 	 */
 	public static Album fromFile(String filename)
 	{
-		// YOUR CODE HERE
+		Album temp = null;
+		try (Scanner in = new Scanner(new File(filename)))
+		{
+			String artist = in.nextLine();
+			String name = in.nextLine();
+			temp = new Album(artist, name);
+			while (in.hasNextLine())
+			{
+				Track tempTrack = new Track(artist, in.nextLine());
+				temp.addTrack(tempTrack);
+			}
+		}
+		catch (Exception e) //Only one response for any exception.
+		{
+			System.out.println("An exception has occured. Unable to load the album in " + filename + "!");
+		}
+		return temp;
 	}
 
 	/**
@@ -67,7 +73,7 @@ public class Album
 	 */
 	public void addTrack(Track t)
 	{
-		// YOUR CODE HERE
+		this.tracks.add(t);
 	}
 
 	/**
@@ -77,7 +83,12 @@ public class Album
 	 */
 	public void addTrackAt(int index, Track t)
 	{
-		// YOUR CODE HERE
+		if (index <= this.tracks.size())
+		{
+			ListIterator<Track> iter = this.tracks.listIterator();
+			for (int i = 0; i < index; i++) { iter.next(); }
+			iter.add(t);
+		}
 	}
 
 	/**
@@ -86,7 +97,12 @@ public class Album
 	 */
 	public void removeTrackAt(int index)
 	{
-		// YOUR CODE HERE
+		if (index <= this.tracks.size())
+		{
+			ListIterator<Track> iter = this.tracks.listIterator();
+			for (int i = 0; i < index; i++) { iter.next(); }
+			iter.remove();
+		}
 	}
 
 	/**
@@ -96,7 +112,13 @@ public class Album
 	 */
 	public Track getTrackAt(int index)
 	{
-		// YOUR CODE HERE
+		if (index <= this.tracks.size())
+		{
+			ListIterator<Track> iter = this.tracks.listIterator();
+			for (int i = 0; i < index; i++) { iter.next(); }
+			return iter.next();
+		}
+		else { return null; }
 	}
 
 	/**
@@ -108,6 +130,10 @@ public class Album
 	 */
 	public void printTrackList()
 	{
-		// YOUR CODE HERE
+		ListIterator<Track> iter = this.tracks.listIterator();
+		while (iter.hasNext())
+		{
+			System.out.println(iter.nextIndex() + 1 + ". " + iter.next().getName());
+		}
 	}
 }
