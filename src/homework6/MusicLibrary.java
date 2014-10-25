@@ -14,7 +14,7 @@ public class MusicLibrary
 	 */
 	public MusicLibrary()
 	{
-		// YOUR CODE HERE
+		this.library = new HashMap<String, Album>();
 	}
 
 	/**
@@ -23,7 +23,7 @@ public class MusicLibrary
 	 */
 	public void addAlbum(Album a)
 	{
-		// YOUR CODE HERE
+		this.library.put(a.getName(), a);
 	}
 
 	/**
@@ -33,7 +33,7 @@ public class MusicLibrary
 	 */
 	public Album getAlbum(String albumName)
 	{
-		// YOUR CODE HERE
+		return this.library.get(albumName);
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class MusicLibrary
 	 */
 	public void removeAlbum(String albumName)
 	{
-		// YOUR CODE HERE
+		this.library.remove(albumName);
 	}
 
 	/**
@@ -51,6 +51,6 @@ public class MusicLibrary
 	 */
 	public int count()
 	{
-		// YOUR CODE HERE
+		return this.library.size();
 	}
 }
