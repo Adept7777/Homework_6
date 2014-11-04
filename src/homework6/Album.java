@@ -100,7 +100,7 @@ public class Album
 		if (index <= this.tracks.size())
 		{
 			ListIterator<Track> iter = this.tracks.listIterator();
-			for (int i = 0; i < index; i++) { iter.next(); }
+			for (int i = 0; i <= index; i++) { iter.next(); }
 			iter.remove();
 		}
 	}
